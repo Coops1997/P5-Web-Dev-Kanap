@@ -17,17 +17,17 @@ function insertItems(items){
         const item = items[i];
         console.log(items);
     
-const articleElement = document.createElement ('item');
-articleElement.setAttribute('id', items.id);
-articleElement.classList.add('item');
+const itemElement = document.createElement('items');
+itemElement.setAttribute('id', items.id);
+itemElement.classList.add('item');
 
-articleElement.innerHTML = `
-<h3>${items.name}</h3>
-<a href="./product.html?id=42$(items.id)">click me</a>
-<p>${items.text}</p>
+itemElement.innerHTML = `
+<h3>${item.name}</h3>
+<a href="./product.html?id=42${item.id}">image</a>
+<p>${item.description}</p>
 `;
 
-itemHolder.appendChild(articleElement);
+itemHolder.appendChild(itemElement);
 
     }
 }
