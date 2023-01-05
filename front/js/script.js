@@ -1,33 +1,49 @@
-fetch('http://localhost:3000/api/products')
-.then(data => {
-    return data.json();
-})
-.then(items => {
-    insertItems(items);
-});
+/*
+** | index page (all products)
+*/
 
-    
-const itemHolder = document.getElementById('items');
+const URL = 'http://localhost:3000/api/products/';
+const SINGLE_PRODUCT_LINK = './productFront.html?=';
 
-    
-        
-function insertItems(items){
+/*
+** | fetch
+*/
 
-    for (let i = 0; i < items.length; i++) {
-        const item = items[i];
-        console.log(items);
-    
-const itemElement = document.createElement('items');
-itemElement.setAttribute('id', items.id);
-itemElement.classList.add('item');
+fetch(URL) 
+    .then((response) => response.json())
+    .then((data) => {
+        createProductCardsInfo(data);
+});  
 
-itemElement.innerHTML = `
-<h3>${item.name}</h3>
-<a href="./product.html?id=42${item.id}">image</a>
-<p>${item.description}</p>
-`;
+/*
+** | create product cards 
+*/
 
-itemHolder.appendChild(itemElement);
-
+function createProductCardsInfo(array) {
+    for (let i = 0; i<array.length; i++) {
+        createProductCardView(array[i]);
     }
+}
+
+/*
+** | cards view
+*/
+
+function createProductCardView(object) {
+    //DOM creation of product descriptor parent - 'items' 
+    let items = document.createElement('item');
+    //DOM creation of product descriptors + link
+    let productName = document.createElement('h3');
+    let productDescription = document.createElement('p');
+    let img = document.createElement('img');
+    let pageLink = document.createElement('a');
+   
+    //populate
+    productName.innerText = object.name;
+    productDescription.innerText= object.description;
+    img.src= object.imageUrl;
+
+    items.appendChild(productName);
+    items.appendChild(productDescription);
+
 }
