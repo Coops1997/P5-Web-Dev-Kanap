@@ -43,6 +43,8 @@ function createProductCardView(object) {
     productDescription.innerText= object.description;
     img.src= object.imageUrl;
 
+    //appendChild
+
     items.appendChild(productName);
     items.appendChild(productDescription);
     items.appendChild(img)
