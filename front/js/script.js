@@ -45,5 +45,7 @@ function createProductCardView(object) {
 
     items.appendChild(productName);
     items.appendChild(productDescription);
+    items.appendChild(img)
+    items.appendChild(pageLink)
 
 }

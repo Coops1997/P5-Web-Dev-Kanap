@@ -100,6 +100,3 @@ function populateCartInfo(cart) {
    
     return populateCartInfo;
 }
-
-/*
-** update cart quantity (specific item)
