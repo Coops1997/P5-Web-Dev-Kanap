@@ -14,10 +14,7 @@ for (let i = 0; i < cart.length; i++) {
 ** function call
 */
 
-deleteCartItem();
-updateQuantityCartItem();
-updateCartTotal ();
-captureFormData ();
+
 
 //use looped cart above to push data into DOM node
 

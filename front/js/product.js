@@ -8,7 +8,7 @@ const quantity = document.getElementById('quantity');
 const addButton = document.getElementById('addToCart');
 
 
-    fetch(URL)
+    fetch(urlAPI)
       .then((response) => response.json())
       .then((data) => {
         createProductCardsInfo(data)
