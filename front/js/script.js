@@ -50,4 +50,5 @@ function createProductCardView(object) {
     items.appendChild(img)
     items.appendChild(pageLink)
 
+    console.log(items)
 }
