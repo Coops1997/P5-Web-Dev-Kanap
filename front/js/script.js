@@ -2,14 +2,14 @@
 ** | index page (all products)
 */
 
-const URL = 'http://localhost:3000/api/products/';
+const URI = 'http://localhost:3000/api/products/';
 const SINGLE_PRODUCT_LINK = './productFront.html?=';
 
 /*
 ** | fetch
 */
 
-fetch(URL) 
+fetch(URI) 
     .then((response) => response.json())
     .then((data) => {
         createProductCardsInfo(data);
