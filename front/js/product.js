@@ -1,5 +1,4 @@
 const urlParams = new URLSearchParams(document.location.search);
-const urlAPI = 'http://localhost:3000/api/products/'+urlParams.get("id");
 const titleProduct = document.getElementById('title');
 const priceProduct = document.getElementById('price');
 const descProduct = document.getElementById('description');

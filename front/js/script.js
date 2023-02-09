@@ -1,53 +1,23 @@
-/*
-** | index page (all products)
-*/
-
-const URI = 'http://localhost:3000/api/products/';
-const SINGLE_PRODUCT_LINK = './productFront.html?=';
-
-/*
-** | fetch
-*/
-
-fetch(URI) 
-    .then((response) => response.json())
-    .then((data) => {
-        createProductCardsInfo(data);
-});  
-
-/*
-** | create product cards 
-*/
-
-function createProductCardsInfo(array) {
-    for (let i = 0; i<array.length; i++) {
-        createProductCardView(array[i]);
+// fetch //
+async function fetchProducts() {
+    const response = await fetch('http://localhost:3000/api/products');
+    return response.json();
     }
-}
-
-/*
-** | cards view
-*/
-
-function createProductCardView(object) {
-    //DOM creation of product descriptor parent - 'items' 
-    let items = document.createElement('item');
-    //DOM creation of product descriptors + link
-    let productName = document.createElement('h3');
-    let productDescription = document.createElement('p');
-    let img = document.createElement('img');
-    let pageLink = document.createElement('a');
-   
-    //populate
-    productName.innerText = object.name;
-    productDescription.innerText= object.description;
-    img.src= object.imageUrl;
-
-    //appendChild
-
-    items.appendChild(productName);
-    items.appendChild(productDescription);
-    items.appendChild(img)
-    items.appendChild(pageLink)
-
-}
+  
+  // Get DOM elements //
+  const productContainer = document.getElementById ('items');
+  
+  // populate //
+  fetchProducts().then(products => {
+    for (let product of products) {
+        const productElement = `<a href="./product.html?id=${product._id}">
+        <article>
+          <img src="${product.imageUrl}" alt="${product.altText}">
+          <h3 class="productName">${product.name}</h3>
+          <p class="productDescription">${product.description}</p>
+        </article>
+      </a>`;
+        
+        productContainer.innerHTML += productElement
+    }
+  });
