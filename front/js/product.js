@@ -92,3 +92,5 @@ function productDetails(product) {
           color.innerHTML += `<option value="${data.colors[i]}">${data.colors[i]}</option>`;
         }
       });
+    }
+
