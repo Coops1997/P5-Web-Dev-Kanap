@@ -7,6 +7,8 @@ const quantity = document.getElementById('quantity');
 const addButton = document.getElementById('addToCart');
 
 
+// Send a request to the API to collect the product data
+
     fetch(urlAPI)
       .then((response) => response.json())
       .then((data) => {
@@ -26,7 +28,7 @@ const addButton = document.getElementById('addToCart');
         // description
         let description = document.getElementById("description");
         description.innerHTML = data.description;
-        // colors
+        // colors + loop
         let color = document.getElementById("colors");
         for (i = 0; i < data.colors.length; i++) {
           color.innerHTML += `<option value="${data.colors[i]}">${data.colors[i]}</option>`;
