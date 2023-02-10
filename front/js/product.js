@@ -67,30 +67,25 @@ function productDetails(product) {
       price: product.price * parseInt(selectedQuantity.value, 10),
     };
 
-    fetch(urlAPI)
-      .then((response) => response.json())
-      .then((data) => {
-        createProductCardsInfo(data)
-        // image
-        let img = document.querySelector(".item__img");
-        img.innerHTML = `<img src="${data.imageUrl}" alt="${data.altTxt}">`;
-        // name
-        let name = document.getElementById("title");
-        name.innerHTML = data.name;
-        // title
-        let title = document.querySelector("title");
-        title.innerHTML = data.name;
-        // price
-        let price = document.getElementById("price");
-        price.innerHTML = `${data.price}`;
-        // description
-        let description = document.getElementById("description");
-        description.innerHTML = data.description;
-        // colors
-        let color = document.getElementById("colors");
-        for (i = 0; i < data.colors.length; i++) {
-          color.innerHTML += `<option value="${data.colors[i]}">${data.colors[i]}</option>`;
-        }
-      });
+    // Local Storage //
+    let previousCart = localStorage.getItem("cart")
+      ? JSON.parse(localStorage.getItem("cart"))
+      : [];
+    let item = previousCart.find(
+      (item) =>
+        item.id === userSelection.id && userSelection.color === item.color
+    );
+    if (item) {
+      const itemIndex = previousCart.findIndex(
+        (item) =>
+          item.id === userSelection.id && userSelection.color === item.color
+      );
+      previousCart.splice(itemIndex);
+      userSelection.quantity += item.quantity;
     }
+    previousCart.push(userSelection);
+    localStorage.setItem("cart", JSON.stringify(previousCart));
+  });
+}
 
+init();
