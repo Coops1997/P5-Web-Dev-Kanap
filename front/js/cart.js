@@ -1,6 +1,5 @@
-/*
-** cart
-*/
+// cart
+
 
 let cart = JSON.parse(localStorage.getItem('scart')) || [];
 //turn into workable data
