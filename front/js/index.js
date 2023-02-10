@@ -2,7 +2,7 @@ const URI = 'http://localhost:3000/api/products/';
 const SINGLE_PRODUCT_LINK = './productFront.html?=';
 
 /*
-** | fetch
+** | fetch(send GET request)
 */
 
 fetch(URI) 
@@ -12,7 +12,7 @@ fetch(URI)
 });  
 
 /*
-** | create product cards 
+** | create product cards (using loop)
 */
 
 function createProductCardsInfo(array) {
@@ -22,7 +22,7 @@ function createProductCardsInfo(array) {
 }
 
 /*
-** | cards view
+** | cards view (modify the DOM)
 */
 
 function createProductCardView(object) {
