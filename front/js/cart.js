@@ -1,7 +1,6 @@
 // cart
 
-
-let cart = JSON.parse(localStorage.getItem('scart')) || [];
+let cart = JSON.parse(localStorage.getItem('cart'));
 //turn into workable data
 console.log('cart:', cart);
 //loop through the data to get access to it
@@ -12,7 +11,6 @@ for (let i = 0; i < cart.length; i++) {
 /*
 ** function call
 */
-
 
 
 //use looped cart above to push data into DOM node
