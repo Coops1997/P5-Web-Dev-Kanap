@@ -64,7 +64,6 @@ async function getProduct(id) {
     for (const button of buttons) {
       button.addEventListener("click", function (e) {
         const itemToDelete = e.target.closest(".cart__item");
-        console.log(e);
   
         const { color, id } = itemToDelete.dataset;
         itemToDelete.parentNode.removeChild(itemToDelete);
