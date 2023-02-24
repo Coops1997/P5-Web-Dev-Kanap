@@ -8,3 +8,4 @@ function getParam(param) {
 let id = getParam("id");
 document.getElementById("orderId").textContent = id;
 localStorage.clear();
+
