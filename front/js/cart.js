@@ -64,7 +64,6 @@ async function getProduct(id) {
     for (const button of buttons) {
       button.addEventListener("click", function (e) {
         const itemToDelete = e.target.closest(".cart__item");
-        console.log(e);
   
         const { color, id } = itemToDelete.dataset;
         itemToDelete.parentNode.removeChild(itemToDelete);
@@ -154,5 +153,86 @@ async function getProduct(id) {
     priceTotal.textContent = "0";
     quantityTotal.textContent = "0";
   }
+
+   // Validate form entry - Regex
+   function validateEmail(inputText) {
+    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (inputText.match(mailformat)) {
+      alert("Valid email address!");
+      return true;
+    } else {
+      alert("Enter a valid email address!");
+      return false;
+    }
+  }
   
+  function validate(inputText) {
+    if (inputText.trim()) {
+      return true;
+    } else {
+        alert("Insert all the information required");
+      return false;
+    }
+  }
   
+  // Check contact form information
+  function order() {
+    const orderBtn = document.getElementById("order");
+    orderBtn.addEventListener("click", (data) => {
+      data.preventDefault();
+      data.stopPropagation();
+      let contact = {
+        firstName: document.querySelector("#firstName").value,
+        lastName: document.querySelector("#lastName").value,
+        address: document.querySelector("#address").value,
+        city: document.querySelector("#city").value,
+        email: document.querySelector("#email").value,
+      };
+      // Test form fields
+      if (
+        validate(contact.firstName) == true &&
+        validate(contact.lastName) == true &&
+        validate(contact.city) == true &&
+        validateEmail(contact.email) == true &&
+        validate(contact.address) == true
+      ) {
+        // Create "products" table for back
+        data.preventDefault();
+        let cart = getCartFromLS();
+        let products = [];
+  
+        // Push product ID from local storage into "products" table
+        for (let item of cart) {
+          products.push(item.id);
+        }
+        // Create object
+        const order = {
+          contact,
+          products: products,
+        };
+        // POST request parameters
+        const options = {
+          method: "POST",
+          body: JSON.stringify(order),
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        };
+        // Request sent, API returns the order id
+        fetch("http://localhost:3000/api/products/order", options)
+          .then((response) => response.json())
+          .then((data) => {
+            document.location.href = "confirmation.html?id=" + data.orderId;
+          })
+          .catch((err) => {
+            console.log("Error in request: " + err.message);
+          });
+      } else {
+        e.preventDefault();
+        console.log("Please review the form for errors.");
+      }
+    });
+  }
+  
+  order();

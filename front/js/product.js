@@ -69,7 +69,7 @@ function productDetails(product) {
       price: product.price * parseInt(selectedQuantity.value, 10),
     };
 
-    // Local Storage //
+    // Local Storage - Push to cart page //
     let previousCart = localStorage.getItem("cart")
       ? JSON.parse(localStorage.getItem("cart"))
       : [];
@@ -82,8 +82,6 @@ function productDetails(product) {
         (item) =>
           item.id === userSelection.id && userSelection.color === item.color
       );
-      previousCart.splice(itemIndex);
-      userSelection.quantity += item.quantity;
     }
     previousCart.push(userSelection);
     localStorage.setItem("cart", JSON.stringify(previousCart));
