@@ -188,7 +188,7 @@ async function getProduct(id) {
         city: document.querySelector("#city").value,
         email: document.querySelector("#email").value,
       };
-      // Test form fields
+      // validate info
       if (
         validate(contact.firstName) == true &&
         validate(contact.lastName) == true &&
@@ -225,7 +225,7 @@ async function getProduct(id) {
           .then((data) => {
             document.location.href = "confirmation.html?id=" + data.orderId;
           })
-          .catch((err) => {
+          .catch((error) => {
             console.log("Error in request: " + err.message);
           });
       } else {
