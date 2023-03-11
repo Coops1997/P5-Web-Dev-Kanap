@@ -91,23 +91,23 @@ async function getProduct(id) {
     let itemSubtotal = Array.from(subtotalHTMLCollect);
       
     qtyInputs.forEach(function(qtyInput){
-      // var oldQty = qtyInput.value;
+
       
       qtyInput.addEventListener("change", function (e) {
-        var newQty = qtyInput.value;
-        var theCart = getCartFromLS();
-        var thisItem = e.target.closest(".cart__item");
+        const newQty = qtyInput.value;
+        const theCart = getCartFromLS();
+        const thisItem = e.target.closest(".cart__item");
         const { id } = thisItem.dataset;
-        var theProduct = theCart.find((item)=>
+        const theProduct = theCart.find((item)=>
         item.id === id
         )
-        var itemPrice = theProduct.price / theProduct.quantity;
-        var newSubtotal = (itemPrice * newQty) + "€";
+        const itemPrice = theProduct.price / theProduct.quantity;
+        const newSubtotal = (itemPrice * newQty) + "€";
         console.log(newQty);
         console.log(newSubtotal);
         console.log("needs update");
   
-        var thisSubtotalEl = thisItem.getElementsByClassName("item__subtotal");
+        const thisSubtotalEl = thisItem.getElementsByClassName("item__subtotal");
         thisSubtotalEl[0].innerHTML = newSubtotal;
   
         theProduct.quantity = newQty;

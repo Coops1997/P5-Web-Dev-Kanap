@@ -1,11 +1,10 @@
-const URI = 'http://localhost:3000/api/products/';
 const SINGLE_PRODUCT_LINK = './productFront.html?=';
 
 /*
 ** | fetch(send GET request)
 */
 
-fetch(URI) 
+fetch('http://localhost:3000/api/products/') 
     .then((response) => response.json())
     .then((data) => {
         createProductCardsInfo(data);
@@ -27,7 +26,7 @@ function createProductCardsInfo(array) {
 
 function createProductCardView(object) {
     //DOM creation of product descriptor parent - 'items' 
-    let items = document.createElement('item');
+    let items = document.createElement('items');
     //DOM creation of product descriptors + link
     let productName = document.createElement('h3');
     let productDescription = document.createElement('p');
