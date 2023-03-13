@@ -1,12 +1,18 @@
+/*
+** | index page (all products)
+*/
+
+const URI = 'http://localhost:3000/api/products/';
 const SINGLE_PRODUCT_LINK = './productFront.html?=';
 
 /*
-** | fetch(send GET request)
+** | fetch
 */
 
-fetch('http://localhost:3000/api/products/') 
+fetch(URI) 
     .then((response) => response.json())
     .then((data) => {
+        console.log(data); // works without console.log, good for access however
         createProductCardsInfo(data);
 });  
 
@@ -25,26 +31,18 @@ function createProductCardsInfo(array) {
 */
 
 function createProductCardView(object) {
-    //DOM creation of product descriptor parent - 'items' 
+    //DOM creation of product descriptor parent - 'article' 
     let items = document.createElement('items');
     //DOM creation of product descriptors + link
     let productName = document.createElement('h3');
     let productDescription = document.createElement('p');
     let img = document.createElement('img');
     let pageLink = document.createElement('a');
-
-    
    
     //populate
     productName.innerText = object.name;
     productDescription.innerText= object.description;
+    
     img.src= object.imageUrl;
-
-    //appendChild
-
-    items.appendChild(productName);
-    items.appendChild(productDescription);
-    items.appendChild(img)
-    items.appendChild(pageLink)
 
 }
