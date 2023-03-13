@@ -43,6 +43,7 @@ function getCartFromLS() {
   return cart || [];
 }
 
+
 //Populate cart
 function displayCart(products) {
   for (const product of products) {
@@ -92,7 +93,7 @@ function modifyItemQty() {
   let itemSubtotal = Array.from(subtotalHTMLCollect);
     
   qtyInputs.forEach(function(qtyInput){
-    // var oldQty = qtyInput.value;
+   
     
     qtyInput.addEventListener("change", function (e) {
       var newQty = qtyInput.value;
