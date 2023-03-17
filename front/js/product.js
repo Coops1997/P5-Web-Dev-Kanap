@@ -75,6 +75,7 @@ function productDetails(product) {
       (item) =>
         item.id === userSelection.id && userSelection.color === item.color
     );
+
     if (item) {
       const itemIndex = previousCart.findIndex(
         (item) =>
@@ -86,6 +87,10 @@ function productDetails(product) {
     previousCart.push(userSelection);
     localStorage.setItem("cart", JSON.stringify(previousCart));
   });
+
 }
+
+
+
 
 init();
