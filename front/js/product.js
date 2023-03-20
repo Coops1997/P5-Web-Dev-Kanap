@@ -67,6 +67,7 @@ function productDetails(product) {
       price: product.price * parseInt(selectedQuantity.value, 10),
     };
 
+    
     // Local Storage //
     let previousCart = localStorage.getItem("cart")
       ? JSON.parse(localStorage.getItem("cart"))
@@ -75,6 +76,7 @@ function productDetails(product) {
       (item) =>
         item.id === userSelection.id && userSelection.color === item.color
     );
+    
 
     if (item) {
       const itemIndex = previousCart.findIndex(

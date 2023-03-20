@@ -145,37 +145,6 @@ function setCartToLS(cart) {
   }
 }
 
-// store product prices on object
-
-const productPrices= {};
-fetch('http://localhost:3000/api/products/')
-      .then(response =>response.json())
-      .then(data =>initialPrices(data))
-      .then(() => {
-        buildPage();
-        getTotals();
-      })
-      .catch(error =>
-        console.log(error));
-
-      
-
-//initialize price object
-
-function initialPrices(array) {
-  const length = array.length;
-  for (let i=0; i<length; i++)
-  {
-    productPrices[array[i]._id] = array[i].price;
-  }
-}
-
-//add price
-
-let productPrice = document.createElement('p');
-    productPrice.innerHTML = '£' + productPrices[productLocalStorage[i]._id];
-    productItemContentDescription.appendChild(productPrice);
-
 
 // Display for empty cart
 let cartContents = getCartFromLS();
