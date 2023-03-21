@@ -4,6 +4,8 @@ const getProductId = () => {
 };
 const productId = getProductId();
 
+//Retrieve from API//
+
 function init() {
   fetch(`http://localhost:3000/api/products/${productId}`)
     .then((response) => {
@@ -38,61 +40,72 @@ let productSelection = (product) => {
   }
 };
 
-// User functionality //
-function productDetails(product) {
-  const selectedQuantity = document.querySelector("#quantity");
-  const button = document.querySelector("#addToCart");
-  const selectedColor = document.querySelector("#colors");
+const productDetails = (product) => {  
+  let colorsKanap = product.colors;
+  Kanapname = product.name;
+  document.querySelector(".item__img").innerHTML = `<img src="${product.imageUrl}" alt="${product.altTxt}">`;
+  document.querySelector("#title").innerHTML = `<h1> ${product.name} </h1>`;
+  document.querySelector("#price").innerHTML = ` <span id="price">${product.price}</span>`;
+  document.querySelector("#description").innerHTML = `<p id="description">${product.description}</p>`;
+  
+  // Boucle qui parcous les couleurs (i in colorsKanap)
+  for (let i in colorsKanap)  {
+    document.querySelector("#colors").innerHTML += `
+    <option value="${colorsKanap[i]}">${colorsKanap[i]}</option> `;
+  }
+};
 
-  button.addEventListener("click", (event) => {
-    event.preventDefault();
-
-    if (selectedColor.value == false) {
-      alert("Please select a color");
-    } else if (selectedQuantity.value == 0) {
-      alert("Please select a quantity");
-    } else {
-      alert("Added to cart");
-    }
-
-    // Get product selection details //
-    let userSelection = {
-      id: product._id,
-      name: product.name,
-      img: product.imageUrl,
-      altTxt: product.altTxt,
-      description: product.description,
-      color: selectedColor.value,
-      quantity: parseInt(selectedQuantity.value, 10),
-      price: product.price * parseInt(selectedQuantity.value, 10),
-    };
-
-    
-    // Local Storage //
-    let previousCart = localStorage.getItem("cart")
-      ? JSON.parse(localStorage.getItem("cart"))
-      : [];
-    let item = previousCart.find(
-      (item) =>
-        item.id === userSelection.id && userSelection.color === item.color
-    );
-    
-
-    if (item) {
-      const itemIndex = previousCart.findIndex(
-        (item) =>
-          item.id === userSelection.id && userSelection.color === item.color
-      );
-      previousCart.splice(itemIndex);
-      userSelection.quantity += item.quantity;
-    }
-    previousCart.push(userSelection);
-    localStorage.setItem("cart", JSON.stringify(previousCart));
+  const button = document.querySelector("#addToCart")
+      button.addEventListener("click", () => {
+      let selectedColor = document.querySelector("#colors").value;
+      let selectedQuantity = document.querySelector("#quantity").value;
+      let titleName = Kanapname;
+  
+      if (selectedColor.value == false) {
+        alert("Please select a color");
+      } else if (selectedQuantity.value == 0) {
+        alert("Please select a quantity");
+      } else {
+        alert("Added to cart");
+      }
   });
+ 
+  let userSelection = {
+    id : productId ,
+    color : color ,
+    quantity : parseInt(quantity) ,
+    title : titleName
+  };
 
+  let productInlocalStorage = JSON.parse(localStorage.getItem("cart"));
+
+  if (productInlocalStorage == null) {
+
+    productInlocalStorage = [];
+  }
+  const selectedProduct = productInlocalStorage.find((product) => { 
+    return product.color === color && product.id === productId
+  })
+  
+  if(selectedProduct)
+  {
+    selectedProduct.quantity +=parseInt(quantity)
+    console.log(quantity);
+  }
+  
+  else 
+  {  
+    productInlocalStorage.push(productOption)
+  }
+  localStorage.setItem("cart",JSON.stringify(productInlocalStorage));
+
+    const popupConfirmation = () => {
+  if (window.confirm(`your/you ${productOption.quantity}  ${productOption.title} color : ${productOption.color} Item has been added to cart!` )) {
+    window.location.href = "cart.html";
+  } else {
+     window.location.href = "index.html";
+  }
 }
-
-
-
+popupConfirmation();
 
 init();

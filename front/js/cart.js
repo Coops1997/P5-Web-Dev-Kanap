@@ -4,7 +4,7 @@ async function getProduct(id) {
   return response.json();
 }
 
-// DOM elements
+//  Access DOM elements
 const cartProducts = document.getElementById("cart__items");
 const priceTotal = document.getElementById("totalPrice");
 const quantityTotal = document.getElementById("totalQuantity");
@@ -43,7 +43,6 @@ function getCartFromLS() {
   return cart || [];
 }
 
-
 //Populate cart
 function displayCart(products) {
   for (const product of products) {
@@ -65,7 +64,6 @@ function deleteItem() {
   for (const button of buttons) {
     button.addEventListener("click", function (e) {
       const itemToDelete = e.target.closest(".cart__item");
-      console.log(e);
 
       const { color, id } = itemToDelete.dataset;
       itemToDelete.parentNode.removeChild(itemToDelete);
@@ -93,23 +91,23 @@ function modifyItemQty() {
   let itemSubtotal = Array.from(subtotalHTMLCollect);
     
   qtyInputs.forEach(function(qtyInput){
-   
+
     
     qtyInput.addEventListener("change", function (e) {
-      var newQty = qtyInput.value;
-      var theCart = getCartFromLS();
-      var thisItem = e.target.closest(".cart__item");
+      const newQty = qtyInput.value;
+      const theCart = getCartFromLS();
+      const thisItem = e.target.closest(".cart__item");
       const { id } = thisItem.dataset;
-      var theProduct = theCart.find((item)=>
+      const theProduct = theCart.find((item)=>
       item.id === id
       )
-      var itemPrice = theProduct.price / theProduct.quantity;
-      var newSubtotal = (itemPrice * newQty) + "€";
+      const itemPrice = theProduct.price / theProduct.quantity;
+      const newSubtotal = (itemPrice + newQty) + "€";
       console.log(newQty);
       console.log(newSubtotal);
       console.log("needs update");
 
-      var thisSubtotalEl = thisItem.getElementsByClassName("item__subtotal");
+      const thisSubtotalEl = thisItem.getElementsByClassName("item__subtotal");
       thisSubtotalEl[0].innerHTML = newSubtotal;
 
       theProduct.quantity = newQty;
@@ -145,7 +143,6 @@ function setCartToLS(cart) {
   }
 }
 
-
 // Display for empty cart
 let cartContents = getCartFromLS();
 console.log(cartContents);
@@ -157,14 +154,14 @@ if (cartContents.length > 0) {
   quantityTotal.textContent = "0";
 }
 
-// Validate form entry - Regex
-function validateEmail(inputText) {
+ // Validate form entry - Regex
+ function validateEmail(inputText) {
   var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   if (inputText.match(mailformat)) {
     alert("Valid email address!");
     return true;
   } else {
-    alert("You have entered an invalid email address!");
+    alert("Enter a valid email address!");
     return false;
   }
 }
@@ -173,6 +170,7 @@ function validate(inputText) {
   if (inputText.trim()) {
     return true;
   } else {
+      alert("Insert all the information required");
     return false;
   }
 }
@@ -190,9 +188,9 @@ function order() {
       city: document.querySelector("#city").value,
       email: document.querySelector("#email").value,
     };
-    // Test form fields
+    // validate info
     if (
-      validate(contact.firstName) &&
+      validate(contact.firstName) == true &&
       validate(contact.lastName) == true &&
       validate(contact.city) == true &&
       validateEmail(contact.email) == true &&
@@ -227,7 +225,7 @@ function order() {
         .then((data) => {
           document.location.href = "confirmation.html?id=" + data.orderId;
         })
-        .catch((err) => {
+        .catch((error) => {
           console.log("Error in request: " + err.message);
         });
     } else {
