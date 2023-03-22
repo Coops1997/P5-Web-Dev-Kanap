@@ -42,6 +42,7 @@ function createProductCardView(object) {
     //populate
     productName.innerText = object.name;
     productDescription.innerText= object.description;
+    pageLink.innerText= object.Link;
     
     img.src= object.imageUrl;
 
