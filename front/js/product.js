@@ -7,7 +7,7 @@ fetch("http://localhost:3000/api/products/" + productId )
   if(response.ok) {
     response.json()
     .then((value) => {
-      KanapDisplay(value);
+      pageDisplay(value);
     })
   } else {
     console.error('Error');
@@ -19,17 +19,17 @@ fetch("http://localhost:3000/api/products/" + productId )
       
 // Functions //
 
-const KanapDisplay = (product) => {  
-  let colorsKanap = product.colors;
-  Kanapname = product.name;
+const pageDisplay = (product) => {  
+  let colorsProduct = product.colors;
+  Productname = product.name;
   document.querySelector(".item__img").innerHTML = `<img src="${product.imageUrl}" alt="${product.altTxt}">`;
   document.querySelector("#title").innerHTML = `<h1> ${product.name} </h1>`;
   document.querySelector("#price").innerHTML = ` <span id="price">${product.price}</span>`;
   document.querySelector("#description").innerHTML = `<p id="description">${product.description}</p>`;
   
-  for (let i in colorsKanap)  {
+  for (let i in colorsProduct)  {
     document.querySelector("#colors").innerHTML += `
-    <option value="${colorsKanap[i]}">${colorsKanap[i]}</option> `;
+    <option value="${colorsProduct[i]}">${colorsProduct[i]}</option> `;
   }
 };
 
@@ -39,7 +39,7 @@ const button = document.querySelector("#addToCart")
 button.addEventListener("click", () => {
   let color = document.querySelector("#colors").value;
   let quantity = document.querySelector("#quantity").value;
-  let titleName = Kanapname ;
+  let titleName = Productname ;
   
   if (color === "" || quantity <= 0 || quantity > 100) {
     alert("Please choose a colour and quantity! ")
