@@ -204,7 +204,7 @@ const checkInputs = () => {
 const command = () => {
   let data = checkInputs();
   if (!data) {
-    alert("Please complete the form!");
+    alert("Please complete the form!:)");
 
     return;
   }
@@ -221,7 +221,7 @@ const command = () => {
       productData.push(product.id);
     }
   }
-  
+
   fetch(KanapAPI + "order", {
     method: "POST",
     headers: {

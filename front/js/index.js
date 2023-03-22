@@ -12,7 +12,7 @@ const SINGLE_PRODUCT_LINK = './productFront.html?=';
 fetch(URI) 
     .then((response) => response.json())
     .then((data) => {
-        console.log(data); // works without console.log, good for access however
+        console.log(data);
         createProductCardsInfo(data);
 });  
 
