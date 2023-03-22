@@ -20,7 +20,7 @@ const displayProduct = (product) => {
         products.push(product);
         totalCalcul();
 
-        //create new articles//
+        //create new articles + html fill//
 
         let quantity = parseInt(productQuantity);
         const newArticle = document.createElement("article");
@@ -55,17 +55,19 @@ const displayProduct = (product) => {
         const changeBtn = document.querySelector(
           `[data-id="${productId}"][data-color="${productColor}"] .itemQuantity`
         );
+// quantity button//
         changeBtn.addEventListener("change", (e) => {
           changeQuantity(productId, productColor, e.target.value);
           
         });
+// delete button //
         deleteBtn.addEventListener("click", () => {
           deleteItem(productId, productColor);
         });
       })
       .catch((error) => console.log(error))
   };
-  
+  // update changes in cart//
 const changeQuantity = (id, color, value) => {
   const updatedCart = JSON.parse(localStorage.getItem("cart")) || [];
 
@@ -99,7 +101,7 @@ const deleteItem = (productId, color) => {
 
   totalCalcul();
 };
-
+// updated cart + calculations //
 const totalCalcul = () => {
   const updatedCart = JSON.parse(localStorage.getItem("cart")) || [];
   let total = 0;
@@ -132,55 +134,51 @@ const start = () => {
     command();
   });
 };
-
+// validation forms
 const allRegex = [
   {
     name: "firstName",
     regex: /^[A-Za-z-]+$/,
-    error: "Veuillez remplir correctement les champs obligatoire ! :)",
-    validate: "Prenom √",
+    error: "Please fill out all the information required! :)",
+    validate: "firstname √",
   },
   {
     name: "lastName",
     regex: /^[A-Za-z-]+$/,
-    error: "Veuillez remplir correctement les champs obligatoire ! :)",
-    validate: "Nom √",
+    error: "Please fill out all the information required! :)",
+    validate: "lastname √",
   },
   {
     name: "address",
     regex: /^[0-9]+\s[0-9A-Za-zÀ-ü-'\s]+$/,
-    error: "Veuillez remplir correctement les champs obligatoire ! :)",
-    validate: "Adresse √",
+    error: "Please fill out all the information required! :)",
+    validate: "Address √",
   },
   {
     name: "city",
     regex: /^[A-Za-zÀ-ü-'\s]+$/,
-    error: "Veuillez remplir correctement les champs obligatoire ! :)",
-    validate: "Ville √",
+    error: "Please fill out all the information required! :)",
+    validate: "City √",
   },
   {
     name: "email",
     regex: /^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$/,
-    error: "Veuillez remplir correctement les champs obligatoire ! :)",
+    error: "Please fill out all the information required! :)",
     validate: "Email √",
   },
 ];
-// fonction verification des champs du formulaire
+
 const checkInputs = () => {
   let datas = {};
   let validForm = true;
 
   for (let field of allRegex) {
-    // selectionner élément input
     let fieldInput = document.querySelector(`#${field.name}`);
-    //valeur de l'input
     let inputValue = fieldInput.value;
 
     fieldInput.addEventListener("change", (e) => {
-      //si ya regex verification
 
       if (!field.regex.test(e.target.value)) {
-        //efacce le message d'erreur en modifiant le champs avec textContent
 
         fieldInput.nextElementSibling.textContent = field.error;
       } else {
@@ -188,10 +186,7 @@ const checkInputs = () => {
       }
     });
 
-    // test valeur mise par l'ui si regex valide
-
     if (!field.regex.test(inputValue)) {
-      // sinon , erreur dans nextElementSibling
 
       fieldInput.nextElementSibling.textContent = field.error;
       validForm = false;
@@ -206,30 +201,27 @@ const checkInputs = () => {
   }
 };
 
-// fonction pour passer la commande si form valide
 const command = () => {
   let data = checkInputs();
   if (!data) {
-    alert("Veuillez remplir le formulaire correctement ! :)");
+    alert("Please complete the form!");
 
     return;
   }
-  // verification si panier rempli
-  let products = JSON.parse(localStorage.getItem("panier")) || [];
+
+  let products = JSON.parse(localStorage.getItem("cart")) || [];
   let productData = [];
   if (!products[0]) {
-    alert("Votre panier est vide");
+    alert("Your basket is empty!");
     return;
   }
 
-  // creéation tableau contenu du panier
   for (let product of products) {
     for (let index = 0; index < product.quantity; index++) {
       productData.push(product.id);
     }
   }
-
-  // envoi à l'API via la méthode POST
+  
   fetch(KanapAPI + "order", {
     method: "POST",
     headers: {
@@ -249,7 +241,7 @@ const command = () => {
   })
     .then((response) => response.json())
     .then((data) => {
-      localStorage.removeItem("panier");
+      localStorage.removeItem("cart");
       window.location.replace("confirmation.html?orderId=" + data.orderId);
     })
     .catch((error) => {

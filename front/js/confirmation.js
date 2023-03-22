@@ -1,11 +1,8 @@
-// Display ID
-function getParam(param) {
-    let url = new URL(window.location.href);
-    let result = url.searchParams.get(param);
-
-    return result;
-}
-let id = getParam("id");
-document.getElementById("orderId").textContent = id;
-localStorage.clear();
-
+const start = () => {
+    const orderId = document.querySelector("#orderId");
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get("orderId");
+    orderId.textContent = id;
+  };
+  
+  window.addEventListener("load", start);
